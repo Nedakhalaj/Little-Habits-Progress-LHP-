@@ -4,24 +4,32 @@
 //
 //  Created by neda khalajnejad on 2026-04-30.
 //
- import SwiftUI
+ import Foundation
 import SwiftData
 
 @Model
-class HabitModel: Identifiable {
+class HabitModel {
     var id = UUID()
-    var title: String
+    var newHabit: String
     var purposeAmount: Double
-    var habitType: HabitType
+    var habitTypeRaw: String
     var isCompleted: Bool
     
     
-    init( title: String,purposeAmount:Double, isCompleted: Bool, habitType: HabitType) {
-        self.title = title
-        self.purposeAmount = purposeAmount
-        self.isCompleted = isCompleted
-        self.habitType = habitType
+    var habitType: HabitType {
+        get{
+            HabitType(rawValue: habitTypeRaw) ?? .build
+        }
+        set{
+            habitTypeRaw = newValue.rawValue
+        }
     }
+    
+    init( title: String, purposeAmount:Double, habitType: HabitType) {
+        self.newHabit = title
+        self.purposeAmount = purposeAmount
+        self.isCompleted = false
+        self.habitTypeRaw = habitType.rawValue    }
     
     
 }
