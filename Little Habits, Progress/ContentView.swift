@@ -8,16 +8,41 @@
 import SwiftUI
 
 struct ContentView: View {
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        ZStack {
+            
+            Color("AppBackground")
+                .ignoresSafeArea()
+            TabView{
+                ProgressView()
+                    .tabItem{
+                        Label("Progress", systemImage: "chart.bar.fill")
+                    }
+                SettingView()
+                    .tabItem{
+                        Label("Settings", systemImage: "gear")
+                    }
+                AddHabits()
+                    .tabItem{
+                        Label("Add", systemImage: "plus")
+                    }
+                FocusTime()
+                    .tabItem{
+                        Label("Focus", systemImage: "timer")
+                    }
+            }
+            .toolbarBackground(Color("AppBackground"), for: .tabBar)
+            .toolbarBackground(.visible, for: .tabBar)
         }
-        .padding()
     }
 }
+
+
+
+
+
+
 
 #Preview {
     ContentView()
