@@ -15,22 +15,30 @@ struct ContentView: View {
             Color("AppBackground")
                 .ignoresSafeArea()
             TabView{
+                
+                HomeView()
+                    .tabItem{
+                        Label("Home", systemImage: "house.fill")
+                    }
                 ProgressView()
                     .tabItem{
                         Label("Progress", systemImage: "chart.bar.fill")
-                    }
-                SettingView()
-                    .tabItem{
-                        Label("Settings", systemImage: "gear")
                     }
                 AddHabits()
                     .tabItem{
                         Label("Add", systemImage: "plus")
                     }
+                
                 FocusTime()
                     .tabItem{
                         Label("Focus", systemImage: "timer")
                     }
+                
+                SettingView()
+                    .tabItem{
+                        Label("Settings", systemImage: "gear")
+                    }
+                
             }
             .toolbarBackground(Color("AppBackground"), for: .tabBar)
             .toolbarBackground(.visible, for: .tabBar)

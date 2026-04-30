@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct Little_Habits__ProgressApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .modelContainer(for: HabitModel.self )
         }
     }
 }
