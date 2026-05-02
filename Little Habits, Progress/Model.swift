@@ -10,10 +10,11 @@ import SwiftData
 @Model
 class HabitModel {
     var id = UUID()
-    var newHabit: String
+    var title: String
     var purposeAmount: Double
     var habitTypeRaw: String
     var isCompleted: Bool
+    var currentAmount: Double = 0
     
     
     var habitType: HabitType {
@@ -24,9 +25,13 @@ class HabitModel {
             habitTypeRaw = newValue.rawValue
         }
     }
+    var progress: Double {
+        guard purposeAmount > 0 else { return 0 }
+        return (currentAmount / purposeAmount) * 100
+    }
     
     init( title: String, purposeAmount:Double, habitType: HabitType) {
-        self.newHabit = title
+        self.title = title
         self.purposeAmount = purposeAmount
         self.isCompleted = false
         self.habitTypeRaw = habitType.rawValue    }

@@ -33,12 +33,18 @@ struct AddHabits: View {
                 .pickerStyle(.segmented)
                
                 Button("Add") {
-                    guard !newHabit.isEmpty, let purposeDouble = Double(purpose) else { return }
+                    print("Button tapped — habit: '\(newHabit)', purpose: '\(purpose)'")
+                    guard !newHabit.isEmpty, let purposeDouble = Double(purpose) else {
+                        print("Guard failed — empty: \(newHabit.isEmpty), double: \(Double(purpose) as Any)")
+                        return
+                    }
                     let habit = HabitModel(title: newHabit, purposeAmount: purposeDouble, habitType: selectedHabitType)
                     modelContext.insert(habit)
+                    print("Inserted successfully")
                     newHabit = ""
                     purpose = ""
                 }
+                //.disabled(newNoteText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                     
             }
             .padding()
@@ -48,4 +54,5 @@ struct AddHabits: View {
 }
 #Preview {
     AddHabits()
+        .modelContainer(for: HabitModel.self, inMemory: true)
 }
