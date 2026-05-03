@@ -13,6 +13,7 @@ class HabitModel {
     var title: String
     var purposeAmount: Double
     var habitTypeRaw: String
+    var startDate: Date
     var currentAmount: Double = 0
     var completionDates: [Date] = []
     var isCompletedToday: Bool {
@@ -42,10 +43,11 @@ class HabitModel {
         return (currentAmount / purposeAmount) * 100
     }
     
-    init( title: String, purposeAmount:Double, habitType: HabitType) {
+    init( title: String, purposeAmount:Double, habitType: HabitType, startDate: Date = Date.now) {
         self.title = title
         self.purposeAmount = purposeAmount
-        self.habitTypeRaw = habitType.rawValue    }
+        self.habitTypeRaw = habitType.rawValue
+        self.startDate = startDate   }
     
     
 }
