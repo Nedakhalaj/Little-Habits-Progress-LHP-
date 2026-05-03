@@ -41,14 +41,18 @@ struct HomeView: View {
                                 
                                 
                                 Button{
-                                    item.isCompleted.toggle()}
+                                    if item.isCompletedToday{
+                                        item.completionDates.removeAll{Calendar.current.isDateInToday($0)}
+                                    }else{
+                                        item.completionDates.append(Date.now)
+                                    }}
                                 label:{
-                                    Image(systemName: item.isCompleted ? "checkmark.circle.fill" : "checkmark.circle")
+                                    Image(systemName: item.isCompletedToday ? "checkmark.circle.fill" : "checkmark.circle")
                                 }
                                 .buttonStyle(.plain)
                                 Spacer()
                                 NavigationLink {
-                                    ProgressView()
+                                    HabitDetailView()
                                 } label: {
                                 EmptyView()
                                     
@@ -76,10 +80,7 @@ struct HomeView: View {
 }
 
 #Preview {
-    let container = try! ModelContainer(for: HabitModel.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
-    let sample = HabitModel(title: "Read books", purposeAmount: 30, habitType: .build)
-    container.mainContext.insert(sample)
-    return HomeView()
-        .modelContainer(container)
+    HomeView()
+        .modelContainer(for: HabitModel.self , inMemory: true)
 }
 
