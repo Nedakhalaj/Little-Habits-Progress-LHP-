@@ -6,33 +6,89 @@
 //
 import SwiftUI
 import SwiftData
+import Charts
 
 struct ProgressView: View {
     @Query var query: [HabitModel]
+    
+    var last7Days: [Date] {
+        (0..<7)
+            .compactMap { Calendar.current.date(byAdding: .day, value: -$0, to: Date.now) }
+            .reversed()
+    }
+    
+    
+    func completionCount(for day: Date) -> Int {
+        query.filter { habit in
+            habit.completionDates.contains {
+                Calendar.current.isDate($0, inSameDayAs: day)
+            }
+        }.count
+    }
     
     
     var body: some View {
         ZStack {
             Color("AppBackground")
                 .ignoresSafeArea()
-            ScrollView {
-                VStack {
-                    Text("Streak")
-                        .font(.title)
-                        .padding()
-                    
-                    ForEach(query) {item in
-                        HabitProgressCard(habit:item)
+            VStack{
+                ScrollView {
+                    VStack {
+                        Text("Streak")
+                            .font(.title)
+                            .padding()
+                        
+                        ForEach(query) {item in
+                            HabitProgressCard(habit:item)
+                            
+                        }
+                        
                         
                     }
                     
-                    
                 }
+                Chart {
+                    ForEach(query) { habit in
+                        ForEach(last7Days, id: \.self) { day in
+                            let completed = habit.completionDates.contains {
+                                Calendar.current.isDate($0, inSameDayAs: day)
+                            }
+                            LineMark(
+                                x: .value("Day", day, unit: .day),
+                                y: .value("Done", completed ? 1 : 0)
+                            )
+                            .foregroundStyle(by: .value("Habit", habit.title))
+
+                            PointMark(
+                                x: .value("Day", day, unit: .day),
+                                y: .value("Done", completed ? 1 : 0)
+                            )
+                            .foregroundStyle(by: .value("Habit", habit.title))
+                        }
+                    }
+                }
+                .chartXAxis {
+                    AxisMarks(values: last7Days) { _ in
+                        AxisValueLabel(format: .dateTime.weekday(.abbreviated))
+                    }
+                }
+                .chartYAxis {
+                    AxisMarks(values: [0, 1]) { value in
+                        AxisValueLabel(value.as(Int.self) == 1 ? "Done" : "Missed")
+                    }
+                }
+                .frame(height: 220)
+                .padding()
+                .background(Color.white.opacity(0.3))
+                .cornerRadius(12)
+                .padding(.horizontal)
+
+                
             }
         }
-        
     }
 }
+    
 
 struct HabitProgressCard: View {
     var habit: HabitModel

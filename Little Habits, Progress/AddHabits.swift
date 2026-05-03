@@ -12,6 +12,7 @@ struct AddHabits: View {
 @State private var newHabit: String = ""
 @State private var purpose: String = ""
 @State private var selectedHabitType: HabitType = .build
+@State private var startDate: Date = Date.now
     
 @Environment(\.modelContext) var modelContext
     
@@ -31,6 +32,8 @@ struct AddHabits: View {
                     Text("Reduce").tag(HabitType.reduce)
                 }
                 .pickerStyle(.segmented)
+                
+              
                
                 Button("Add") {
                     print("Button tapped — habit: '\(newHabit)', purpose: '\(purpose)'")
@@ -38,14 +41,17 @@ struct AddHabits: View {
                         print("Guard failed — empty: \(newHabit.isEmpty), double: \(Double(purpose) as Any)")
                         return
                     }
-                    let habit = HabitModel(title: newHabit, purposeAmount: purposeDouble, habitType: selectedHabitType)
+                    let habit = HabitModel(title: newHabit, purposeAmount: purposeDouble, habitType: selectedHabitType, startDate: startDate)
                     modelContext.insert(habit)
                     print("Inserted successfully")
                     newHabit = ""
                     purpose = ""
                 }
                 //.disabled(newNoteText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
-                    
+                  Spacer()
+                
+                DatePicker("Start Date", selection: $startDate,  displayedComponents: .date)
+                    .datePickerStyle(.graphical)
             }
             .padding()
         }
