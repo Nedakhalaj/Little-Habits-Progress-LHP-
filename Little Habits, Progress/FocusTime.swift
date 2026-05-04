@@ -11,16 +11,8 @@ import SwiftData
 struct FocusTime:View {
     @Query var query: [HabitModel]
     @Environment(\.modelContext) var context
-    @State private var selectedHabit: HabitModel? = nil
-    @State private var timeRemaining: Int = 25 * 60
-    @State private var isRunning: Bool = false
-    @State private var timer: Timer? = nil
+    @State private var vm = FocusTimeViewModel()
     
-    var timeDisplay: String{
-         let minute = timeRemaining / 60
-         let second = timeRemaining % 60
-        return String(format: "%02d:%02d", minute, second)
-    }
     var body: some View {
         ZStack {
             Color("AppBackground")
@@ -30,7 +22,7 @@ struct FocusTime:View {
                     .font(.largeTitle)
                     .bold()
                 
-                Picker("Activity", selection: $selectedHabit){
+                Picker("Activity", selection: $vm.selectedHabit){
                     Text("Select an activity").tag(nil as HabitModel?)
                     ForEach(query){item in
                         Text(item.title).tag(Optional(item))
@@ -39,16 +31,30 @@ struct FocusTime:View {
                     
                 }
                 .pickerStyle(.menu)
-                .onChange(of: selectedHabit) { _, newValue in
-                    timer?.invalidate()
-                    isRunning = false
-                    timeRemaining = newValue != nil ? Int(newValue!.purposeAmount) * 60 : 25 * 60
+                .onChange(of: vm.selectedHabit) { _, newValue in
+                    vm.timer?.invalidate()
+                    vm.isRunning = false
+                    vm.timeRemaining = newValue != nil ? Int(newValue!.purposeAmount) * 60 : 25 * 60
                 }
+                Text(vm.timeDisplay)
+                           .font(.system(size: 80, weight: .thin, design: .monospaced))
+
+                       HStack(spacing: 24) {
+                           Button("Reset") { vm.resetTimer() }
+                               .buttonStyle(.bordered)
+
+                           Button(vm.isRunning ? "Pause" : "Start") {
+                               vm.isRunning ? vm.pauseTimer() : vm.startTimer()
+                           }
+                           .buttonStyle(.borderedProminent)
+                       }
+                   }
+                   .padding()
+               }
             }
         }
            
-    }
-}
+   
 #Preview {
     FocusTime()
         .modelContainer(for: HabitModel.self , inMemory: true)
