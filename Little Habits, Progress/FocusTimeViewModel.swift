@@ -10,7 +10,7 @@ import SwiftUI
 
 
 @Observable
-class FocusTimerViewModel{
+class FocusTimeViewModel{
     var selectedHabit: HabitModel? = nil
      var timeRemaining: Int = 25 * 60
      var isRunning: Bool = false
