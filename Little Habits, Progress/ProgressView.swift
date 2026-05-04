@@ -138,5 +138,6 @@ struct HabitProgressCard: View {
 }
 #Preview{
     ProgressView()
+        .modelContainer(for: HabitModel.self , inMemory: true)
 }
 
