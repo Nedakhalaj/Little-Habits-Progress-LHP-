@@ -51,12 +51,7 @@ struct HomeView: View {
                                 }
                                 .buttonStyle(.plain)
                                 Spacer()
-                                NavigationLink {
-                                    HabitDetailView()
-                                } label: {
-                                EmptyView()
-                                    
-                                }
+                               
 
                                 
                             }

@@ -36,14 +36,11 @@ struct AddHabits: View {
               
                
                 Button("Add") {
-                    print("Button tapped — habit: '\(newHabit)', purpose: '\(purpose)'")
                     guard !newHabit.isEmpty, let purposeDouble = Double(purpose) else {
-                        print("Guard failed — empty: \(newHabit.isEmpty), double: \(Double(purpose) as Any)")
                         return
                     }
                     let habit = HabitModel(title: newHabit, purposeAmount: purposeDouble, habitType: selectedHabitType, startDate: startDate)
                     modelContext.insert(habit)
-                    print("Inserted successfully")
                     newHabit = ""
                     purpose = ""
                 }
