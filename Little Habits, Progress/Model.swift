@@ -19,12 +19,16 @@ class HabitModel {
     var isCompletedToday: Bool {
         completionDates.contains{Calendar.current.isDateInToday($0)}
     }
+    
+    
     var streak: Int {
         var count = 0
         var day = Date.now
         while completionDates.contains(where: {Calendar.current.isDate($0, inSameDayAs: day)}) {
             count += 1
-            day = Calendar.current.date(byAdding: .day, value: -1, to: day)!
+            guard let previous = Calendar.current.date(byAdding: .day, value: -1, to: day) else { break }
+            day = previous
+            if count > 3650 { break }
         }
         return count
     }
@@ -53,7 +57,9 @@ class HabitModel {
         self.title = title
         self.purposeAmount = purposeAmount
         self.habitTypeRaw = habitType.rawValue
-        self.startDate = startDate   }
+        self.startDate = startDate
+        self.completionDates = []
+    }
     
     
 }

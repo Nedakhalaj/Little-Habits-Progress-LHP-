@@ -17,16 +17,6 @@ struct ProgressView: View {
             .reversed())
     }
     
-    
-    func completionCount(for day: Date) -> Int {
-        query.filter { habit in
-            habit.completionDates.contains {
-                Calendar.current.isDate($0, inSameDayAs: day)
-            }
-        }.count
-    }
-    
-    
     var body: some View {
         ZStack {
             Color("AppBackground")
@@ -43,7 +33,6 @@ struct ProgressView: View {
                             
                         }
                         
-                        
                     }
                     
                 }
@@ -57,7 +46,7 @@ struct ProgressView: View {
                             )
                             .foregroundStyle(by: .value("Habit", habit.title))
                             .interpolationMethod(.catmullRom)
-
+                            
                             PointMark(
                                 x: .value("Day", day, unit: .day),
                                 y: .value("Completions", cumulativeCount(for: habit, upToIndex: index))
@@ -78,28 +67,28 @@ struct ProgressView: View {
         }.count
     }
 }
-    
+
 
 struct HabitProgressCard: View {
     var habit: HabitModel
-
+    
     var last7Days: [Date] {
-        (0..<7)
+        Array((0..<7)
             .compactMap { Calendar.current.date(byAdding: .day, value: -$0, to: Date.now) }
-            .reversed()
+            .reversed())
     }
-
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
                 Text(habit.title)
                     .font(.headline)
                 Spacer()
-                Text("🔥 \(habit.streak) days")
+                Text(" \(habit.streak) days")
                     .font(.subheadline)
                     .foregroundStyle(.orange)
             }
-
+            
             HStack(spacing: 8) {
                 ForEach(last7Days, id: \.self) { day in
                     VStack(spacing: 4) {
@@ -107,8 +96,8 @@ struct HabitProgressCard: View {
                             .fill(habit.completionDates.contains {
                                 Calendar.current.isDate($0, inSameDayAs: day)
                             } ? (habit.habitType == .build ? Color.green : Color.red)
-                              : Color.gray.opacity(0.3))
-
+                                  : Color.gray.opacity(0.3))
+                        
                         Text(dayInitial(day))
                             .font(.caption2)
                             .foregroundStyle(.secondary)
@@ -120,7 +109,7 @@ struct HabitProgressCard: View {
         .background(Color.white.opacity(0.3))
         .cornerRadius(12)
     }
-
+    
     func dayInitial(_ date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "E"
