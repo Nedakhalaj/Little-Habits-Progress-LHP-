@@ -13,7 +13,7 @@ struct HomeView: View {
     @Environment(\.modelContext) var modelContext
     
     var body: some View {
-        NavigationStack{
+        
         ZStack{
             Color("AppBackground")
                 .ignoresSafeArea()
@@ -74,7 +74,7 @@ struct HomeView: View {
             }
             
         }
-    }
+    
       
     }
 }

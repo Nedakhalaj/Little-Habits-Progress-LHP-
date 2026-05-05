@@ -11,10 +11,7 @@ import SwiftData
 struct ContentView: View {
     
     var body: some View {
-        ZStack {
-            
-            Color("AppBackground")
-                .ignoresSafeArea()
+        
             TabView{
                 
                 HomeView()
@@ -43,7 +40,7 @@ struct ContentView: View {
             }
             .toolbarBackground(Color("AppBackground"), for: .tabBar)
             .toolbarBackground(.visible, for: .tabBar)
-        }
+        
     }
 }
 
