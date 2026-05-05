@@ -12,9 +12,9 @@ struct ProgressView: View {
     @Query var query: [HabitModel]
     
     var last7Days: [Date] {
-        (0..<7)
+        Array((0..<7)
             .compactMap { Calendar.current.date(byAdding: .day, value: -$0, to: Date.now) }
-            .reversed()
+            .reversed())
     }
     
     
@@ -49,43 +49,33 @@ struct ProgressView: View {
                 }
                 Chart {
                     ForEach(query) { habit in
-                        ForEach(last7Days, id: \.self) { day in
-                            let completed = habit.completionDates.contains {
-                                Calendar.current.isDate($0, inSameDayAs: day)
-                            }
+                        ForEach(Array(last7Days.enumerated()), id: \.offset) { index, day in
                             LineMark(
                                 x: .value("Day", day, unit: .day),
-                                y: .value("Done", completed ? 1 : 0)
+                                y: .value("Completions", cumulativeCount(for: habit, upToIndex: index)),
+                                series: .value("Habit", habit.title)
                             )
                             .foregroundStyle(by: .value("Habit", habit.title))
+                            .interpolationMethod(.catmullRom)
 
                             PointMark(
                                 x: .value("Day", day, unit: .day),
-                                y: .value("Done", completed ? 1 : 0)
+                                y: .value("Completions", cumulativeCount(for: habit, upToIndex: index))
                             )
                             .foregroundStyle(by: .value("Habit", habit.title))
                         }
                     }
                 }
-                .chartXAxis {
-                    AxisMarks(values: last7Days) { _ in
-                        AxisValueLabel(format: .dateTime.weekday(.abbreviated))
-                    }
-                }
-                .chartYAxis {
-                    AxisMarks(values: [0, 1]) { value in
-                        AxisValueLabel(value.as(Int.self) == 1 ? "Done" : "Missed")
-                    }
-                }
-                .frame(height: 220)
-                .padding()
-                .background(Color.white.opacity(0.3))
-                .cornerRadius(12)
-                .padding(.horizontal)
-
                 
             }
         }
+    }
+    func cumulativeCount(for habit: HabitModel, upToIndex index: Int) -> Int {
+        last7Days.prefix(index + 1).filter { d in
+            habit.completionDates.contains {
+                Calendar.current.isDate($0, inSameDayAs: d)
+            }
+        }.count
     }
 }
     
@@ -116,8 +106,9 @@ struct HabitProgressCard: View {
                         Circle()
                             .fill(habit.completionDates.contains {
                                 Calendar.current.isDate($0, inSameDayAs: day)
-                            } ? Color.green : Color.gray.opacity(0.3))
-                            .frame(width: 32, height: 32)
+                            } ? (habit.habitType == .build ? Color.green : Color.red)
+                              : Color.gray.opacity(0.3))
+
                         Text(dayInitial(day))
                             .font(.caption2)
                             .foregroundStyle(.secondary)
@@ -136,6 +127,8 @@ struct HabitProgressCard: View {
         return String(formatter.string(from: date).prefix(1))
     }
 }
+
+
 #Preview{
     ProgressView()
         .modelContainer(for: HabitModel.self , inMemory: true)

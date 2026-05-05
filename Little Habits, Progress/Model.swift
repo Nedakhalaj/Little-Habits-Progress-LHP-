@@ -39,9 +39,15 @@ class HabitModel {
         }
     }
     var progress: Double {
-        guard purposeAmount > 0 else { return 0 }
-        return (currentAmount / purposeAmount) * 100
+        let last7 = (0..<7).compactMap {
+            Calendar.current.date(byAdding: .day, value: -$0, to: Date.now)
+        }
+        let completedDays = last7.filter { day in
+            completionDates.contains { Calendar.current.isDate($0, inSameDayAs: day) }
+        }.count
+        return Double(completedDays) / 7.0 * 100
     }
+    
     
     init( title: String, purposeAmount:Double, habitType: HabitType, startDate: Date = Date.now) {
         self.title = title
