@@ -49,6 +49,11 @@ struct HomeView: View {
                                 label:{
                                     Image(systemName: item.isCompletedToday ? "checkmark.circle.fill" : "checkmark.circle")
                                 }
+                                .foregroundStyle(
+                                    item.isCompletedToday
+                                        ? (item.habitType == .build ? Color.green : Color.red)
+                                        : Color.gray.opacity(0.5)
+                                )
                                 .buttonStyle(.plain)
                                 Spacer()
                                
