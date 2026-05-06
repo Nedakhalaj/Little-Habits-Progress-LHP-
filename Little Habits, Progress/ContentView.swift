@@ -9,9 +9,10 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
+    @AppStorage("isLoggedIn") var isLoggedIn: Bool = false
     
     var body: some View {
-        
+        if isLoggedIn {
             TabView{
                 
                 HomeView()
@@ -40,7 +41,9 @@ struct ContentView: View {
             }
             .toolbarBackground(Color("AppBackground"), for: .tabBar)
             .toolbarBackground(.visible, for: .tabBar)
-        
+        }else{
+            LoginView()
+        }
     }
 }
 
