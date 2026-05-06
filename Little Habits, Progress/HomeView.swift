@@ -12,6 +12,8 @@ struct HomeView: View {
      @Query var query: [HabitModel]
     @Environment(\.modelContext) var modelContext
     
+    
+    
     var body: some View {
         
         ZStack{
@@ -57,7 +59,7 @@ struct HomeView: View {
                                 .buttonStyle(.plain)
                                 Spacer()
                                
-
+                                Text(item.startDate, style: .date)
                                 
                             }
                         }

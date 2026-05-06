@@ -23,6 +23,25 @@ class FocusTimeViewModel{
     }
     
     
+    func pauseTimer() {
+        isRunning = false
+        timer?.invalidate()
+        timer = nil
+    }
+    
+
+    func resetTimer() {
+        pauseTimer()
+        timeRemaining = selectedHabit != nil ? Int(selectedHabit!.purposeAmount) * 60 : 25 * 60
+    }
+    
+
+    func completeTimer() {
+        pauseTimer()
+        selectedHabit?.completionDates.append(Date.now)
+    }
+    
+    
     func startTimer() {
         isRunning = true
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
@@ -34,19 +53,5 @@ class FocusTimeViewModel{
         }
     }
 
-    func pauseTimer() {
-        isRunning = false
-        timer?.invalidate()
-        timer = nil
-    }
-
-    func resetTimer() {
-        pauseTimer()
-        timeRemaining = selectedHabit != nil ? Int(selectedHabit!.purposeAmount) * 60 : 25 * 60
-    }
-
-    func completeTimer() {
-        pauseTimer()
-        selectedHabit?.completionDates.append(Date.now)
-    }
 }
+
