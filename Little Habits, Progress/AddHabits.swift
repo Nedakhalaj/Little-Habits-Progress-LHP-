@@ -1,5 +1,5 @@
 //
-//  AddHabits].swift
+//  AddHabits.swift
 //  Little Habits, Progress
 //
 //  Created by neda khalajnejad on 2026-04-30.
@@ -8,14 +8,14 @@ import SwiftUI
 import SwiftData
 
 struct AddHabits: View {
-    
-@State private var newHabit: String = ""
-@State private var purpose: String = ""
-@State private var selectedHabitType: HabitType = .build
-@State private var selectedHabitUnit: HabitUnit = .hours
-@State private var startDate: Date = Date.now
-    
-@Environment(\.modelContext) var modelContext
+
+    @State private var newHabit: String = ""
+    @State private var purpose: String = ""
+    @State private var selectedHabitType: HabitType = .build
+    @State private var selectedHabitUnit: HabitUnit = .hours
+    @State private var startDate: Date = Date.now
+
+    @Environment(\.modelContext) var modelContext
     
     var body: some View {
         ZStack {
@@ -54,8 +54,8 @@ struct AddHabits: View {
                     purpose = ""
                 }
                 .buttonStyle(.borderedProminent)
-                //.disabled(newNoteText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
-                  Spacer()
+
+                Spacer()
                 
                 DatePicker("Start Date", selection: $startDate,  displayedComponents: .date)
                     .datePickerStyle(.graphical)

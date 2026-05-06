@@ -9,22 +9,22 @@
 import SwiftUI
 
 struct SettingView: View {
-    @AppStorage("isLoggedIn") var isLoggIn: Bool = false
-    
+    @AppStorage("isLoggedIn") var isLoggedIn: Bool = false
+
     var body: some View {
-        
+
         ZStack{
             Color("AppBackground")
                 .ignoresSafeArea()
             VStack{
-                
-                
-                Text("settings")
+
+
+                Text("Settings")
                     .font(.title)
                     .bold()
                 Spacer()
                 Button("Logout"){
-                    isLoggIn = false
+                    isLoggedIn = false
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(.red)

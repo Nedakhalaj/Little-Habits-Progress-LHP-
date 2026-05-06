@@ -10,7 +10,6 @@ import SwiftData
 
 struct LoginView: View {
     @Query var users: [UserModel]
-    @Environment(\.modelContext) var modelContext
     @AppStorage("isLoggedIn") var isLoggedIn: Bool = false
     
     @State private var username: String = ""

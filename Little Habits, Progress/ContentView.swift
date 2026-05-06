@@ -55,5 +55,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-        .modelContainer(for: HabitModel.self, inMemory: true )
+        .modelContainer(for: [HabitModel.self, UserModel.self], inMemory: true)
 }

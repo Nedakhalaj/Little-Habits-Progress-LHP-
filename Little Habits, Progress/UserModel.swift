@@ -1,12 +1,12 @@
 //
-//  UseModel.swift
+//  UserModel.swift
 //  Little Habits, Progress
 //
 //  Created by neda khalajnejad on 2026-05-06.
 //
 
 import Foundation
-import  SwiftData
+import SwiftData
 
 @Model
 class UserModel{
