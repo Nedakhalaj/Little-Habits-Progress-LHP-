@@ -13,6 +13,7 @@ class HabitModel {
     var title: String
     var purposeAmount: Double
     var habitTypeRaw: String
+    var habitUnitRaw: String
     var startDate: Date
     var currentAmount: Double = 0
     var completionDates: [Date] = []
@@ -42,6 +43,17 @@ class HabitModel {
             habitTypeRaw = newValue.rawValue
         }
     }
+    
+    var unit: HabitUnit {
+        get{
+            HabitUnit(rawValue: habitUnitRaw) ?? .times
+        }
+        set{
+            habitUnitRaw = newValue.rawValue
+        }
+    }
+    
+    
     var progress: Double {
         let last7 = (0..<7).compactMap {
             Calendar.current.date(byAdding: .day, value: -$0, to: Date.now)
@@ -53,12 +65,14 @@ class HabitModel {
     }
     
     
-    init( title: String, purposeAmount:Double, habitType: HabitType, startDate: Date = Date.now) {
+    init( title: String, purposeAmount:Double, habitType: HabitType, habitUnit: HabitUnit ,startDate: Date = Date.now) {
         self.title = title
         self.purposeAmount = purposeAmount
         self.habitTypeRaw = habitType.rawValue
+        self.habitUnitRaw = habitUnit.rawValue
         self.startDate = startDate
         self.completionDates = []
+        
     }
     
     
@@ -66,4 +80,9 @@ class HabitModel {
 enum HabitType:String, Codable {
     case build
     case reduce
+}
+enum HabitUnit:String, Codable {
+    case hours
+    case minutes
+    case times
 }
