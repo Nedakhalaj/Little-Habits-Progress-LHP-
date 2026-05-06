@@ -27,6 +27,7 @@ struct AddHabits: View {
                 TextField("Purpose", text: $purpose)
                     .font(.title)
                     .background()
+                Text("\(startDate.formatted(date: .abbreviated, time: .omitted))")
                 Picker("Habit type", selection: $selectedHabitType) {
                     Text("Build").tag(HabitType.build)
                     Text("Reduce").tag(HabitType.reduce)

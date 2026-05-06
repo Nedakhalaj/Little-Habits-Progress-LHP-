@@ -112,7 +112,7 @@ struct HabitProgressCard: View {
     
     func dayInitial(_ date: Date) -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "E"
+        formatter.dateFormat = "E" //is a format code that means "abbreviated day name
         return String(formatter.string(from: date).prefix(1))
     }
 }
