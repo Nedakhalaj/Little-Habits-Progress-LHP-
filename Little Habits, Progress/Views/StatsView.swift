@@ -1,14 +1,15 @@
 //
-//  ProgressView.swift
+//  StatsView.swift
 //  Little Habits, Progress
 //
 //  Created by neda khalajnejad on 2026-04-30.
 //
+
 import SwiftUI
 import SwiftData
 import Charts
 
-struct ProgressView: View {
+struct StatsView: View {
     @Query var query: [HabitModel]
     
     var last7Days: [Date] {
@@ -118,8 +119,8 @@ struct HabitProgressCard: View {
 }
 
 
-#Preview{
-    ProgressView()
-        .modelContainer(for: HabitModel.self , inMemory: true)
+#Preview {
+    StatsView()
+        .modelContainer(for: HabitModel.self, inMemory: true)
 }
 

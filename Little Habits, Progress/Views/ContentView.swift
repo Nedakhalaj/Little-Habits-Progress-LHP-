@@ -19,21 +19,21 @@ struct ContentView: View {
                     .tabItem{
                         Label("Home", systemImage: "house.fill")
                     }
-                ProgressView()
+                StatsView()
                     .tabItem{
                         Label("Progress", systemImage: "chart.bar.fill")
                     }
-                AddHabits()
+                AddHabitsView()
                     .tabItem{
                         Label("Add", systemImage: "plus")
                     }
-                
-                FocusTime()
+
+                FocusTimeView()
                     .tabItem{
                         Label("Focus", systemImage: "timer")
                     }
-                
-                SettingView()
+
+                SettingsView()
                     .tabItem{
                         Label("Settings", systemImage: "gear")
                     }

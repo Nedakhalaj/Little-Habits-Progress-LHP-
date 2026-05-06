@@ -1,5 +1,5 @@
 //
-//  FocusTime.swift
+//  FocusTimeView.swift
 //  Little Habits, Progress
 //
 //  Created by neda khalajnejad on 2026-04-30.
@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-struct FocusTime:View {
+struct FocusTimeView: View {
     @Query var query: [HabitModel]
     @Environment(\.modelContext) var context
     @State private var vm = FocusTimeViewModel()
@@ -56,7 +56,6 @@ struct FocusTime:View {
            
    
 #Preview {
-    FocusTime()
-        .modelContainer(for: HabitModel.self , inMemory: true)
-    
+    FocusTimeView()
+        .modelContainer(for: HabitModel.self, inMemory: true)
 }

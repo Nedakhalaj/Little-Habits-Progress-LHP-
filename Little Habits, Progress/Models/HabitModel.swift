@@ -1,10 +1,11 @@
 //
-//  Model.swift
+//  HabitModel.swift
 //  Little Habits, Progress
 //
 //  Created by neda khalajnejad on 2026-04-30.
 //
- import Foundation
+
+import Foundation
 import SwiftData
 
 @Model

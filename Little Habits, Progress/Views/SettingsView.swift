@@ -1,14 +1,13 @@
 //
-//  Setting.swift
+//  SettingsView.swift
 //  Little Habits, Progress
 //
 //  Created by neda khalajnejad on 2026-04-30.
 //
 
-
 import SwiftUI
 
-struct SettingView: View {
+struct SettingsView: View {
     @AppStorage("isLoggedIn") var isLoggedIn: Bool = false
 
     var body: some View {

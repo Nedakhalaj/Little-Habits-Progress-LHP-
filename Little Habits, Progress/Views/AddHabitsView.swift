@@ -1,13 +1,14 @@
 //
-//  AddHabits.swift
+//  AddHabitsView.swift
 //  Little Habits, Progress
 //
 //  Created by neda khalajnejad on 2026-04-30.
 //
+
 import SwiftUI
 import SwiftData
 
-struct AddHabits: View {
+struct AddHabitsView: View {
 
     @State private var newHabit: String = ""
     @State private var purpose: String = ""
@@ -66,6 +67,6 @@ struct AddHabits: View {
     }
 }
 #Preview {
-    AddHabits()
+    AddHabitsView()
         .modelContainer(for: HabitModel.self, inMemory: true)
 }
