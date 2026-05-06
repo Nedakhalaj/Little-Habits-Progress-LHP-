@@ -17,9 +17,10 @@ class FocusTimeViewModel{
      var timer: Timer? = nil
     
     var timeDisplay: String{
-         let minute = timeRemaining / 60
+        let hour = timeRemaining / 3600
+         let minute = (timeRemaining % 3600) / 60
          let second = timeRemaining % 60
-        return String(format: "%02d:%02d", minute, second)
+        return String(format: "%02d:%02d:%02d",hour, minute, second)
     }
     
     
@@ -32,7 +33,7 @@ class FocusTimeViewModel{
 
     func resetTimer() {
         pauseTimer()
-        timeRemaining = selectedHabit != nil ? Int(selectedHabit!.purposeAmount) * 60 : 25 * 60
+        timeRemaining = selectedHabit?.durationInSeconds ?? 25 * 60
     }
     
 
