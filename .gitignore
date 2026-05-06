@@ -5,6 +5,7 @@
 .claude/
 .vscode/
 .idea/
+CLAUDE.md
 
 # Xcode user-specific
 xcuserdata/
