@@ -1,30 +1,29 @@
 //
-//  Setting.swift
+//  SettingsView.swift
 //  Little Habits, Progress
 //
 //  Created by neda khalajnejad on 2026-04-30.
 //
 
-
 import SwiftUI
 
-struct SettingView: View {
-    @AppStorage("isLoggedIn") var isLoggIn: Bool = false
-    
+struct SettingsView: View {
+    @AppStorage("isLoggedIn") var isLoggedIn: Bool = false
+
     var body: some View {
-        
+
         ZStack{
             Color("AppBackground")
                 .ignoresSafeArea()
             VStack{
-                
-                
-                Text("settings")
+
+
+                Text("Settings")
                     .font(.title)
                     .bold()
                 Spacer()
                 Button("Logout"){
-                    isLoggIn = false
+                    isLoggedIn = false
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(.red)

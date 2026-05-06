@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct HomeView: View {
-     @Query var query: [HabitModel]
+    @Query var query: [HabitModel]
     @Environment(\.modelContext) var modelContext
     
     
