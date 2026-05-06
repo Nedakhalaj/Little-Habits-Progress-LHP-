@@ -23,11 +23,11 @@ struct AddHabits: View {
                 .ignoresSafeArea()
             VStack {
                 TextField("Add a new habit", text: $newHabit)
-                    .font(.title)
-                    .background()
+                    .textFieldStyle(.roundedBorder)
+                    
                 TextField("Purpose", text: $purpose)
-                    .font(.title)
-                    .background()
+                    .textFieldStyle(.roundedBorder)
+                   
                 Picker("purpose type", selection: $selectedHabitUnit) {
                     Text("Hours").tag(HabitUnit.hours)
                     Text("Minutes").tag(HabitUnit.minutes)
@@ -53,6 +53,7 @@ struct AddHabits: View {
                     newHabit = ""
                     purpose = ""
                 }
+                .buttonStyle(.borderedProminent)
                 //.disabled(newNoteText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                   Spacer()
                 
