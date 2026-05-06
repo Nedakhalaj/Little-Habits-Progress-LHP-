@@ -1,6 +1,11 @@
 # macOS
 .DS_Store
 
+# Editor / tooling
+.claude/
+.vscode/
+.idea/
+
 # Xcode user-specific
 xcuserdata/
 *.xcuserstate
