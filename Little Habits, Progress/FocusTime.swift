@@ -34,10 +34,10 @@ struct FocusTime:View {
                 .onChange(of: vm.selectedHabit) { _, newValue in
                     vm.timer?.invalidate()
                     vm.isRunning = false
-                    vm.timeRemaining = newValue != nil ? Int(newValue!.purposeAmount) * 60 : 25 * 60
+                    vm.timeRemaining = newValue?.durationInSeconds ?? 25 * 60
                 }
                 Text(vm.timeDisplay)
-                           .font(.system(size: 80, weight: .thin, design: .monospaced))
+                           .font(.system(size: 50, weight: .thin, design: .monospaced))
 
                        HStack(spacing: 24) {
                            Button("Reset") { vm.resetTimer() }

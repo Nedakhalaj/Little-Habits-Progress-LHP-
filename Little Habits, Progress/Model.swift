@@ -20,7 +20,13 @@ class HabitModel {
     var isCompletedToday: Bool {
         completionDates.contains{Calendar.current.isDateInToday($0)}
     }
-    
+    var durationInSeconds: Int{
+        switch unit{
+        case .hours: return Int(purposeAmount) * 3600
+        case .minutes: return Int(purposeAmount) * 60
+        case .times: return 25 * 60
+        }
+    }
     
     var streak: Int {
         var count = 0

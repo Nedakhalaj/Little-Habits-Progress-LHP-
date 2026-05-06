@@ -31,10 +31,12 @@ struct HomeView: View {
                     Text("Habits: \(query.count)")
                     ForEach(query) {item in
                         VStack(alignment: .leading, spacing: 4){
-                            Text(item.title)
-                                .font(.headline)
-                            
-                            
+                            HStack{
+                                Text(item.title)
+                                    .font(.headline)
+                                Text("\(Int(item.purposeAmount)) \(item.unit.rawValue)")
+                                    .font(.subheadline)
+                            }
                             HStack{
                                 Text("\(item.progress, specifier: "%.0f")%")
                                     .font(.subheadline)
