@@ -12,6 +12,7 @@ struct AddHabits: View {
 @State private var newHabit: String = ""
 @State private var purpose: String = ""
 @State private var selectedHabitType: HabitType = .build
+@State private var selectedHabitUnit: HabitUnit = .hours
 @State private var startDate: Date = Date.now
     
 @Environment(\.modelContext) var modelContext
@@ -27,6 +28,13 @@ struct AddHabits: View {
                 TextField("Purpose", text: $purpose)
                     .font(.title)
                     .background()
+                Picker("purpose type", selection: $selectedHabitUnit) {
+                    Text("Hours").tag(HabitUnit.hours)
+                    Text("Minutes").tag(HabitUnit.minutes)
+                    Text("Times").tag(HabitUnit.times)
+                }
+                .pickerStyle(.segmented)
+                
                 Text("\(startDate.formatted(date: .abbreviated, time: .omitted))")
                 Picker("Habit type", selection: $selectedHabitType) {
                     Text("Build").tag(HabitType.build)
@@ -40,7 +48,7 @@ struct AddHabits: View {
                     guard !newHabit.isEmpty, let purposeDouble = Double(purpose) else {
                         return
                     }
-                    let habit = HabitModel(title: newHabit, purposeAmount: purposeDouble, habitType: selectedHabitType, startDate: startDate)
+                    let habit = HabitModel(title: newHabit, purposeAmount: purposeDouble, habitType: selectedHabitType,habitUnit: selectedHabitUnit ,startDate: startDate)
                     modelContext.insert(habit)
                     newHabit = ""
                     purpose = ""
