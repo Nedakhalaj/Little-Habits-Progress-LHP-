@@ -58,6 +58,7 @@ struct StatsView: View {
                 }
                 
             }
+            .padding()
         }
     }
     func cumulativeCount(for habit: HabitModel, upToIndex index: Int) -> Int {
